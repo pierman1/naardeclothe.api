@@ -2,6 +2,8 @@ const express = require('express')
 var cors = require('cors')
 require('dotenv').config()
 
+const products = require('./products.json')
+
 const app = express()
 app.use(cors())
 // MYSQL
@@ -21,6 +23,10 @@ Mollie = require('mollie-api-node')
 
 mollie = new Mollie.API.Client()
 mollie.setApiKey(process.env.MOLLIE_KEY)
+
+app.get('/api/products', function(req, res) {
+  res.send(products)
+})
 
 app.post('/api/checkout/payment', function (req, res) {
   // con.connect(function (err) {
